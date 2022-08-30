@@ -4,6 +4,7 @@ stages:
     deps:
     - src/stages/data_load.py
     - data/manual/test.csv
+    - data/manual/test2.csv
     params:
     - data_load
     outs:
