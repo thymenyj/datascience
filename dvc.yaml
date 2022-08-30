@@ -17,3 +17,13 @@ stages:
     outs:
     - data/train/iris_train.csv
     - data/test/iris_test.csv
+  train:
+    cmd: python src/stages/train.py --config=params.yml
+    deps:
+    - src/stages/train.py
+    - data/train/iris_train.csv
+    - data/test/iris_test.csv
+    params:
+    - train
+    outs:
+    - 'models/logistic_regression.pkl'

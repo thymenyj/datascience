@@ -7,3 +7,6 @@ data_load:
 featurize:
   data_train_csv_path: 'data/train/iris_train.csv'
   data_test_csv_path: 'data/test/iris_test.csv'
+
+train:
+  logistic_regression_path: 'models/logistic_regression.pkl'

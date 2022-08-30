@@ -5,7 +5,8 @@ from sklearn.model_selection import train_test_split
 
 
 def featurize(config):
-    iris_dataframe =_load_iris_dataframe()
+    data_raw_csv_path = config['data_load']['data_raw_csv_path']
+    iris_dataframe =_load_iris_dataframe(data_raw_csv_path)
 
     X = _get_training_data(iris_dataframe)
     y = _get_testing_data(iris_dataframe)
@@ -23,8 +24,8 @@ def _get_training_data(iris_dataframe):
     return X.to_numpy()[:, (2,3)]
 
 
-def _load_iris_dataframe():
-    iris_dataset = read_csv('data/raw/iris.csv',index_col=0)
+def _load_iris_dataframe(path):
+    iris_dataset = read_csv(path,index_col=0)
     iris_dataframe = DataFrame(iris_dataset)
     return iris_dataframe
 
