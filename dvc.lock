@@ -3,20 +3,35 @@ stages:
   data_load:
     cmd: python src/stages/data_load.py --config=params.yaml
     deps:
-    - path: data/manual/test.csv
-      md5: 6eb366e4d27f6f56f78bf75fb61b3ea9
-      size: 74
-    - path: data/manual/test2.csv
-      md5: 66b7eb8e8211c8cfb53d5be89861e415
-      size: 11
     - path: src/stages/data_load.py
-      md5: 4508a9aaeeb0653d95d64106307cdca8
-      size: 480
+      md5: 95579e9f4e4f9ae6c162950e848ff309
+      size: 1028
     params:
       params.yaml:
         data_load:
           data_raw_csv_path: data/raw/iris.csv
     outs:
     - path: data/raw/iris.csv
-      md5: 74538066c0d5c345c1f44204ef5a3cba
-      size: 3112
+      md5: 63ac94d1ac28399277541bd372d3bea4
+      size: 5127
+  featurize:
+    cmd: python src/stages/featurize.py --config=params.yml
+    deps:
+    - path: data/raw/iris.csv
+      md5: 63ac94d1ac28399277541bd372d3bea4
+      size: 5127
+    - path: src/stages/featurize.py
+      md5: 30a0600e4e9692e43773aeb489e7833e
+      size: 1631
+    params:
+      params.yaml:
+        featurize:
+          data_train_csv_path: data/train/iris_train.csv
+          data_test_csv_path: data/test/iris_test.csv
+    outs:
+    - path: data/test/iris_test.csv
+      md5: fabfda8b593a726e5fc302827360e918
+      size: 1224
+    - path: data/train/iris_train.csv
+      md5: 55cbcb375239ae07c8f62d0a74e13535
+      size: 1224

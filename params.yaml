@@ -3,3 +3,7 @@ base:
 
 data_load:
   data_raw_csv_path: 'data/raw/iris.csv'
+
+featurize:
+  data_train_csv_path: 'data/train/iris_train.csv'
+  data_test_csv_path: 'data/test/iris_test.csv'

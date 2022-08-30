@@ -3,9 +3,17 @@ stages:
     cmd: python src/stages/data_load.py --config=params.yaml
     deps:
     - src/stages/data_load.py
-    - data/manual/test.csv
-    - data/manual/test2.csv
     params:
     - data_load
     outs:
     - data/raw/iris.csv
+  featurize:
+    cmd: python src/stages/featurize.py --config=params.yml
+    deps:
+    - src/stages/featurize.py
+    - data/raw/iris.csv
+    params:
+    - featurize
+    outs:
+    - data/train/iris_train.csv
+    - data/test/iris_test.csv
