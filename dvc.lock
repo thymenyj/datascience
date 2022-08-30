@@ -4,8 +4,8 @@ stages:
     cmd: python src/stages/data_load.py --config=params.yaml
     deps:
     - path: data/manual/test.csv
-      md5: c3a6e3f455e4f11cb8790444dc4eeba4
-      size: 19
+      md5: 3cbd518426a7b66f1d75791b728c03df
+      size: 40
     - path: src/stages/data_load.py
       md5: 4508a9aaeeb0653d95d64106307cdca8
       size: 480
