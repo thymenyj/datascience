@@ -1,3 +1,4 @@
+from turtle import pen
 import yaml
 import pickle
 from pandas import read_csv, DataFrame
@@ -11,7 +12,10 @@ def train(config):
     X = iris_train[['petal_length', 'petal_width']].to_numpy()
     y = iris_train['target'].to_numpy()
 
-    logistic_regression = LogisticRegression()
+    penalty = config['train']['penalty']
+    random_state = config['base']['seed']
+    solver = config['train']['solver']
+    logistic_regression = LogisticRegression(penalty=penalty, solver=solver, random_state=random_state)
     logistic_regression.fit(X, y)
 
     logistic_regression_path = config['train']['logistic_regression_path'] 
