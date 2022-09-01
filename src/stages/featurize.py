@@ -5,13 +5,15 @@ from sklearn.model_selection import train_test_split
 
 
 def featurize(config):
+    seed = config['base']['seed']
+
     data_raw_csv_path = config['data_load']['data_raw_csv_path']
     iris_dataframe =_load_iris_dataframe(data_raw_csv_path)
 
     X = _get_training_data(iris_dataframe)
     y = _get_testing_data(iris_dataframe)
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=seed)
 
     train_csv_path = config['featurize']['data_train_csv_path'] 
     test_csv_path = config['featurize']['data_test_csv_path'] 
