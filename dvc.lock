@@ -15,7 +15,7 @@ stages:
       md5: 63ac94d1ac28399277541bd372d3bea4
       size: 5127
   featurize:
-    cmd: python src/stages/featurize.py --config=params.yml
+    cmd: python src/stages/featurize.py --config=params.yaml
     deps:
     - path: data/raw/iris.csv
       md5: 63ac94d1ac28399277541bd372d3bea4
@@ -36,7 +36,7 @@ stages:
       md5: 55cbcb375239ae07c8f62d0a74e13535
       size: 1224
   train:
-    cmd: python src/stages/train.py --config=params.yml
+    cmd: python src/stages/train.py --config=params.yaml
     deps:
     - path: data/test/iris_test.csv
       md5: fabfda8b593a726e5fc302827360e918
@@ -49,9 +49,37 @@ stages:
       size: 870
     params:
       params.yaml:
+        featurize:
+          data_train_csv_path: data/train/iris_train.csv
+          data_test_csv_path: data/test/iris_test.csv
         train:
           logistic_regression_path: models/logistic_regression.pkl
     outs:
     - path: models/logistic_regression.pkl
       md5: 1bea247b76fd068edc7bd228bb91659c
       size: 746
+  evaluate:
+    cmd: python src/stages/evaluate.py --config=params.yaml
+    deps:
+    - path: data/test/iris_test.csv
+      md5: fabfda8b593a726e5fc302827360e918
+      size: 1224
+    - path: data/train/iris_train.csv
+      md5: 55cbcb375239ae07c8f62d0a74e13535
+      size: 1224
+    - path: models/logistic_regression.pkl
+      md5: 1bea247b76fd068edc7bd228bb91659c
+      size: 746
+    - path: src/stages/evaluate.py
+      md5: 20304fbf147491e0dd6f35d664944cdb
+      size: 1837
+    params:
+      params.yaml:
+        evaluate:
+          metrics_path: reports/metrics/logistic_regression/metrics.json
+        train:
+          logistic_regression_path: models/logistic_regression.pkl
+    outs:
+    - path: reports/metrics/logistic_regression/metrics.json
+      md5: e75ea12db90a7562c3ffddd5b4cb2da3
+      size: 70

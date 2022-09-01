@@ -8,7 +8,7 @@ stages:
     outs:
     - data/raw/iris.csv
   featurize:
-    cmd: python src/stages/featurize.py --config=params.yml
+    cmd: python src/stages/featurize.py --config=params.yaml
     deps:
     - src/stages/featurize.py
     - data/raw/iris.csv
@@ -18,12 +18,25 @@ stages:
     - data/train/iris_train.csv
     - data/test/iris_test.csv
   train:
-    cmd: python src/stages/train.py --config=params.yml
+    cmd: python src/stages/train.py --config=params.yaml
     deps:
     - src/stages/train.py
     - data/train/iris_train.csv
     - data/test/iris_test.csv
     params:
     - train
+    - featurize
     outs:
-    - 'models/logistic_regression.pkl'
+    - models/logistic_regression.pkl
+  evaluate:
+    cmd: python src/stages/evaluate.py --config=params.yaml
+    deps:
+    - src/stages/evaluate.py
+    - models/logistic_regression.pkl
+    - data/train/iris_train.csv
+    - data/test/iris_test.csv
+    params:
+    - evaluate
+    - train
+    metrics:
+    - reports/metrics/logistic_regression/metrics.json

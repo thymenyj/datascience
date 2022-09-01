@@ -10,3 +10,6 @@ featurize:
 
 train:
   logistic_regression_path: 'models/logistic_regression.pkl'
+
+evaluate:
+  metrics_path: 'reports/metrics/logistic_regression/metrics.json'
