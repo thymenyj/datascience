@@ -8,6 +8,8 @@ stages:
       size: 1028
     params:
       params.yaml:
+        base:
+          seed: 35
         data_load:
           data_raw_csv_path: data/raw/iris.csv
     outs:
@@ -25,30 +27,34 @@ stages:
       size: 1742
     params:
       params.yaml:
+        base:
+          seed: 35
         featurize:
           data_train_csv_path: data/train/iris_train.csv
           data_test_csv_path: data/test/iris_test.csv
     outs:
     - path: data/test/iris_test.csv
-      md5: 0cea05f8ba14eb4f9f24e0c5641b348b
+      md5: 105e8866605519b46e8b374f8e75b4dc
       size: 1224
     - path: data/train/iris_train.csv
-      md5: 503740586072a5b54909739f347631d3
+      md5: aec5733aa3de622bfb35e6246cff2eb9
       size: 1224
   train:
     cmd: python src/stages/train.py --config=params.yaml
     deps:
     - path: data/test/iris_test.csv
-      md5: 0cea05f8ba14eb4f9f24e0c5641b348b
+      md5: 105e8866605519b46e8b374f8e75b4dc
       size: 1224
     - path: data/train/iris_train.csv
-      md5: 503740586072a5b54909739f347631d3
+      md5: aec5733aa3de622bfb35e6246cff2eb9
       size: 1224
     - path: src/stages/train.py
       md5: 1c4c69fa874974ffcdd41fb85e843c99
       size: 1076
     params:
       params.yaml:
+        base:
+          seed: 35
         featurize:
           data_train_csv_path: data/train/iris_train.csv
           data_test_csv_path: data/test/iris_test.csv
@@ -58,25 +64,27 @@ stages:
           logistic_regression_path: models/logistic_regression.pkl
     outs:
     - path: models/logistic_regression.pkl
-      md5: eb7f274403b8f42a328f1997ac19d0f6
+      md5: d109c62e89a06ec8807540b9a8eb2c88
       size: 745
   evaluate:
     cmd: python src/stages/evaluate.py --config=params.yaml
     deps:
     - path: data/test/iris_test.csv
-      md5: 0cea05f8ba14eb4f9f24e0c5641b348b
+      md5: 105e8866605519b46e8b374f8e75b4dc
       size: 1224
     - path: data/train/iris_train.csv
-      md5: 503740586072a5b54909739f347631d3
+      md5: aec5733aa3de622bfb35e6246cff2eb9
       size: 1224
     - path: models/logistic_regression.pkl
-      md5: eb7f274403b8f42a328f1997ac19d0f6
+      md5: d109c62e89a06ec8807540b9a8eb2c88
       size: 745
     - path: src/stages/evaluate.py
       md5: 20304fbf147491e0dd6f35d664944cdb
       size: 1837
     params:
       params.yaml:
+        base:
+          seed: 35
         evaluate:
           metrics_path: reports/metrics/logistic_regression/metrics.json
         train:
@@ -85,5 +93,5 @@ stages:
           logistic_regression_path: models/logistic_regression.pkl
     outs:
     - path: reports/metrics/logistic_regression/metrics.json
-      md5: ecd3c6cfdc241443732ac51520a4de19
+      md5: f41fb954409f7790511f66cb5d195adb
       size: 85

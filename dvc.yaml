@@ -4,6 +4,7 @@ stages:
     deps:
     - src/stages/data_load.py
     params:
+    - base
     - data_load
     outs:
     - data/raw/iris.csv
@@ -13,6 +14,7 @@ stages:
     - src/stages/featurize.py
     - data/raw/iris.csv
     params:
+    - base
     - featurize
     outs:
     - data/train/iris_train.csv
@@ -24,6 +26,7 @@ stages:
     - data/train/iris_train.csv
     - data/test/iris_test.csv
     params:
+    - base
     - train
     - featurize
     outs:
@@ -36,6 +39,7 @@ stages:
     - data/train/iris_train.csv
     - data/test/iris_test.csv
     params:
+    - base
     - evaluate
     - train
     metrics:
